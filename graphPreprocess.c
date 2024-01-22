@@ -32,6 +32,15 @@ Copyright 2005 John M. Boyer
 
 int  gp_CreateDFSTree(graphP theGraph)
 {
+    for (int i = 0; i < 5; i++) {
+        int j = theGraph->G[i].link[0];
+        printf("%d: ", i);
+        while (j > 4) {
+            printf("%d, ", theGraph->G[j].v);
+            j = theGraph->G[j].link[0];
+        }
+        printf("\n");
+    }
 stackP theStack = theGraph->theStack;
 int DFI = 0, I, uparent, u, e, J;
 
@@ -138,6 +147,14 @@ int DFI = 0, I, uparent, u, e, J;
           }
      }
 
+    for (int i = 0; i < 5; ++i) {
+        printf("DFI vom DFSParent von %d: %d\n", i, theGraph->G[theGraph->V[i].DFSParent].v);
+    }
+
+    for (int i = 0; i < 5; ++i) {
+        printf("DFSParent von %d: %d\n", i, theGraph->V[i].DFSParent);
+    }
+
      theGraph->internalFlags |= FLAGS_DFSNUMBERED;
      return OK;
 }
@@ -239,6 +256,9 @@ graphNode tempG;
      if (theGraph->internalFlags & FLAGS_SORTEDBYDFI)
           theGraph->internalFlags &= ~FLAGS_SORTEDBYDFI;
      else theGraph->internalFlags |= FLAGS_SORTEDBYDFI;
+    for (int i = 0; i < 5; ++i) {
+        printf("DFSParent von %d: %d\n", i, theGraph->V[i].DFSParent);
+    }
 
      return OK;
 }
@@ -327,8 +347,9 @@ int I, u, uneighbor, J, L, leastAncestor;
                               leastAncestor = uneighbor;
                       }
 #ifdef ORDER_EDGES
-                      else if (theGraph->G[J].type == EDGE_FORWARD)
+                      else if (theGraph->G[J].type == EDGE_FORWARD) {
                           break;
+                      }
 #endif
 
                       J = theGraph->G[J].link[0];

@@ -714,6 +714,7 @@ int  nextVertex;
         if (R != NIL)
         {
             ParentCopy = theEmbedding->V[R-N].DFSParent;
+            printf("ParentCopy: %d\n", ParentCopy);
             if (ParentCopy != I)
                 _RecordPertinentChildBicomp(theEmbedding, I, R);
             Zig = Zag = ParentCopy;
@@ -733,6 +734,8 @@ int  nextVertex;
             nextVertex = theEmbedding->extFace[Zag].link[1^ZagPrevLink];
             ZagPrevLink = theEmbedding->extFace[nextVertex].link[0] == Zag ? 0 : 1;
             Zag = nextVertex;
+
+            printf("ZigZagNext: %d, %d\n", Zig, Zag);
         }
      }
 }
@@ -806,6 +809,7 @@ int  W, WPrevLink, R, Rout, X, XPrevLink, Y, YPrevLink, RootSide, RootEdgeChild;
          WPrevLink = 1^RootSide;
 
          W = theEmbedding->extFace[RootVertex].link[RootSide];
+         printf("W: %d\n", theEmbedding->V[W].adjacentTo);
 
          while (W != RootVertex)
          {
@@ -981,6 +985,7 @@ int N, I, J, W, child, RetVal;
          the 'back edges' from the vertex to its DFS descendants. */
 
     _FillVisitedFlags(theGraph, N);
+    //printf("List: %d\n", theGraph->V[4].fwdArcList);
 
     for (I = theGraph->N-1; I >= 0; I--)
     {
@@ -992,6 +997,7 @@ int N, I, J, W, child, RetVal;
           while (J != NIL)
           {
               W = theGraph->G[J].v;
+              //printf("Vertices: %d, %d\n", I, W);
               theGraph->V[W].adjacentTo = J;
               _WalkUp(theGraph, I, W);
 
@@ -1016,6 +1022,7 @@ int N, I, J, W, child, RetVal;
               child = LCGetNext(theGraph->DFSChildLists, 
                                 theGraph->V[I].separatedDFSChildList, child);
           }
+        if (I == 1) break;
 
           /* If all Walkdown calls succeed, but they don't embed all of the
                 forward edges, then the graph is non-planar. */
