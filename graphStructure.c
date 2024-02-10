@@ -114,6 +114,8 @@ int I;
 
      theGraph->N = N;
 
+     theGraph->graphClass = -1;
+
      for (I = 0; I < (2+2*EDGE_LIMIT)*N; I++)
           _InitGraphNode(theGraph, I);
 
@@ -855,6 +857,11 @@ int  upos, vpos;
 
      theGraph->M++;
      return OK;
+}
+
+int gp_setGraphClass(graphP theGraph, int graphClass) {
+    theGraph-> graphClass = graphClass;
+    return OK;
 }
 
 /********************************************************************

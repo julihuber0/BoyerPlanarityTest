@@ -92,7 +92,7 @@ int N, I, J, Flag, ErrorCode;
 
 int  _ReadAdjList(graphP theGraph, FILE *Infile)
 {
-int N, I, J, ErrorCode;
+int N, I, J, ErrorCode, graphClass;
 
      if (Infile == NULL) return NOTOK;
      fgetc(Infile);                             /* Skip the N= */
@@ -120,6 +120,8 @@ int N, I, J, ErrorCode;
              if (ErrorCode != OK) break;
           }
      }
+     fscanf(Infile, " %d ", &graphClass);
+    gp_setGraphClass(theGraph, graphClass);
 
      return ErrorCode;
 }

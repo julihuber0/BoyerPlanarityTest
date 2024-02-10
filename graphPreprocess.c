@@ -32,15 +32,6 @@ Copyright 2005 John M. Boyer
 
 int  gp_CreateDFSTree(graphP theGraph)
 {
-    for (int i = 0; i < 5; i++) {
-        int j = theGraph->G[i].link[0];
-        printf("%d: ", i);
-        while (j > 4) {
-            printf("%d, ", theGraph->G[j].v);
-            j = theGraph->G[j].link[0];
-        }
-        printf("\n");
-    }
 stackP theStack = theGraph->theStack;
 int DFI = 0, I, uparent, u, e, J;
 

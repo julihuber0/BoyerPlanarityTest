@@ -254,7 +254,7 @@ typedef struct
 {
         graphNodeP G;
         vertexRecP V;
-        int N, M, internalFlags, embedFlags;
+        int N, M, internalFlags, embedFlags, graphClass;
         isolatorContext IC;
         listCollectionP BicompLists, DFSChildLists;
         stackP theStack;
@@ -288,6 +288,7 @@ int    gp_AddEdge(graphP theGraph, int u, int ulink, int v, int vlink);
 void   gp_HideEdge(graphP theGraph, int arcPos);
 void   gp_RestoreEdge(graphP theGraph, int arcPos);
 int    gp_DeleteEdge(graphP theGraph, int J, int nextLink);
+int    gp_setGraphClass(graphP theGraph, int graphClass);
 
 int    gp_CreateDFSTree(graphP theGraph);
 int    gp_SortVertices(graphP theGraph);

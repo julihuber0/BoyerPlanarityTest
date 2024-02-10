@@ -24,6 +24,13 @@ Copyright 2005 John M. Boyer
  MAIN
  ****************************************************************************/
 
+char* getGraphClass(int graphClass) {
+    if (graphClass == 1) {
+        return "random_planar_connected";
+    }
+    return "unknown";
+}
+
 int main(int argc, char *argv[])
 {
     if (argc >= 3)
@@ -42,11 +49,22 @@ int main(int argc, char *argv[])
             return NOTOK;
         }
 
+        clock_t start = clock();
         Result = gp_Embed(theGraph, EMBEDFLAGS_PLANAR);
+        clock_t end = clock();
+        clock_t duration = end - start;
+        double time_taken = ((double)duration)/CLOCKS_PER_SEC;
+        int n = theGraph->N;
+        int m = 2 * theGraph->M;
+        if (Result == OK) {
+            printf("BoyerMyrvoldEdgeAddition_Pure,1,%s,%s,%d,%d,%d,%ld\n", argv[2], getGraphClass(theGraph->graphClass), n, m, n + m, (int64_t) time_taken*1000000000);
+        } else if (Result == NONPLANAR) {
+            printf("BoyerMyrvoldEdgeAddition_Pure,0,%s,%s,%d,%d,%d,%ld\n", argv[2], getGraphClass(theGraph->graphClass), n, m, n + m, (int64_t) time_taken*1000000000);
+        }
 
-        if (Result == OK)
+        /*if (Result == OK)
         {
-            printf("Graph is planar\n");
+            //printf("Graph is planar\n");
             gp_SortVertices(theGraph);
             gp_Write(theGraph, argv[2], WRITE_ADJLIST);
         }
@@ -60,8 +78,8 @@ int main(int argc, char *argv[])
             }
 
             Result = OK;
-            printf("Graph is not planar\n");
-        }
+            //printf("Graph is not planar\n");
+        }*/
         else 
             Result = NOTOK;
 
