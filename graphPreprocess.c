@@ -138,14 +138,6 @@ int DFI = 0, I, uparent, u, e, J;
           }
      }
 
-    for (int i = 0; i < 5; ++i) {
-        printf("DFI vom DFSParent von %d: %d\n", i, theGraph->G[theGraph->V[i].DFSParent].v);
-    }
-
-    for (int i = 0; i < 5; ++i) {
-        printf("DFSParent von %d: %d\n", i, theGraph->V[i].DFSParent);
-    }
-
      theGraph->internalFlags |= FLAGS_DFSNUMBERED;
      return OK;
 }
@@ -247,9 +239,6 @@ graphNode tempG;
      if (theGraph->internalFlags & FLAGS_SORTEDBYDFI)
           theGraph->internalFlags &= ~FLAGS_SORTEDBYDFI;
      else theGraph->internalFlags |= FLAGS_SORTEDBYDFI;
-    for (int i = 0; i < 5; ++i) {
-        printf("DFSParent von %d: %d\n", i, theGraph->V[i].DFSParent);
-    }
 
      return OK;
 }
