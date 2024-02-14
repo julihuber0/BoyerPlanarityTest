@@ -49,17 +49,19 @@ int main(int argc, char *argv[])
             return NOTOK;
         }
 
-        clock_t start = clock();
+        struct timespec starttime;
+        struct timespec endtime;
+
+        timespec_get(&starttime, TIME_UTC);
         Result = gp_Embed(theGraph, EMBEDFLAGS_PLANAR);
-        clock_t end = clock();
-        clock_t duration = end - start;
-        double time_taken = ((double)duration)/CLOCKS_PER_SEC;
+        timespec_get(&endtime, TIME_UTC);
+        long duration = endtime.tv_nsec - starttime.tv_nsec;
         int n = theGraph->N;
         int m = 2 * theGraph->M;
         if (Result == OK) {
-            printf("BoyerMyrvoldEdgeAddition_Pure,1,%s,%s,%d,%d,%d,%ld\n", argv[2], getGraphClass(theGraph->graphClass), n, m, n + m, (int64_t) time_taken*1000000000);
+            printf("BoyerMyrvoldEdgeAddition_Pure,1,%s,%s,%d,%d,%d,%ld\n", argv[2], getGraphClass(theGraph->graphClass), n, m, n + m, duration);
         } else if (Result == NONPLANAR) {
-            printf("BoyerMyrvoldEdgeAddition_Pure,0,%s,%s,%d,%d,%d,%ld\n", argv[2], getGraphClass(theGraph->graphClass), n, m, n + m, (int64_t) time_taken*1000000000);
+            printf("BoyerMyrvoldEdgeAddition_Pure,0,%s,%s,%d,%d,%d,%ld\n", argv[2], getGraphClass(theGraph->graphClass), n, m, n + m, duration);
         }
 
         /*if (Result == OK)
